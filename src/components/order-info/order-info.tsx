@@ -1,23 +1,38 @@
-import { FC, useMemo } from 'react';
-import { Preloader } from '../ui/preloader';
-import { OrderInfoUI } from '../ui/order-info';
-import { TIngredient } from '@utils-types';
+// src/components/order-info/order-info.tsx
+import { FC, useEffect, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from '../../services/store';
+import { Preloader } from '@ui';
+import { OrderInfoUI } from '@ui';
+import { selectIngredients, selectFeedOrders, selectProfileOrders } from '@services/selectors';
+import { getFeeds } from '../../services/slices/feed-slice';
+import { getProfileOrders } from '../../services/slices/profile-orders-slice';
 
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
-  };
+  const { number } = useParams<{ number: string }>();
+  const dispatch = useDispatch();
+  
+  const ingredients = useSelector(selectIngredients);
+  const feedOrders = useSelector(selectFeedOrders);
+  const profileOrders = useSelector(selectProfileOrders);
+  
+  useEffect(() => {
+    // Jeśli nie mamy zamówień, pobieramy je
+    if (!feedOrders.length) {
+      dispatch(getFeeds());
+    }
+    if (!profileOrders.length) {
+      dispatch(getProfileOrders());
+    }
+  }, [dispatch, feedOrders.length, profileOrders.length]);
+  
+  // Szukamy zamówienia albo w feed, albo w profile
+  const orderData = useMemo(() => {
+    const parsedNumber = parseInt(number || '0');
+    return [...feedOrders, ...profileOrders].find(order => order.number === parsedNumber);
+  }, [number, feedOrders, profileOrders]);
 
-  const ingredients: TIngredient[] = [];
-
-  /* Готовим данные для отображения */
+  /* Gotujemy dane dla wyświetlenia */
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 

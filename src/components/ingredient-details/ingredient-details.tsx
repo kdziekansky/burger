@@ -1,10 +1,32 @@
-import { FC } from 'react';
+// src/components/ingredient-details/ingredient-details.tsx
+import { FC, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from '../../services/store';
 import { Preloader } from '../ui/preloader';
-import { IngredientDetailsUI } from '../ui/ingredient-details';
+import { IngredientDetailsUI } from '@ui';
+import { selectIngredients, selectSelectedIngredient } from '@services/selectors';
+import { setSelectedIngredient, clearSelectedIngredient } from '../../services/slices/ingredients-slice';
 
 export const IngredientDetails: FC = () => {
-  /** TODO: взять переменную из стора */
-  const ingredientData = null;
+  const { id } = useParams<{ id: string }>();
+  const dispatch = useDispatch();
+  
+  const ingredients = useSelector(selectIngredients);
+  const ingredientData = useSelector(selectSelectedIngredient);
+  
+  useEffect(() => {
+    if (id && ingredients.length) {
+      const ingredient = ingredients.find(item => item._id === id);
+      if (ingredient) {
+        dispatch(setSelectedIngredient(ingredient));
+      }
+    }
+    
+    // Czyszczenie przy odmontowaniu komponentu
+    return () => {
+      dispatch(clearSelectedIngredient());
+    };
+  }, [id, ingredients, dispatch]);
 
   if (!ingredientData) {
     return <Preloader />;

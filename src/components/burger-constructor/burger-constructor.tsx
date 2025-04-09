@@ -9,17 +9,20 @@ import {
   selectOrderLoading,
   selectOrder,
   selectUser
-} from '@services/selectors';
+} from '@selectors';
 import { clearOrder, createOrder } from '../../services/slices/order-slice';
-import { selectConstructorItems, selectTotalPrice, selectOrderLoading, selectOrder, selectUser } from '@services/selectors';
+import { TConstructorIngredient } from '@utils-types';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  const constructorItems = useSelector(selectConstructorItems);
-  const price = useSelector(selectTotalPrice);
-  const orderRequest = useSelector(selectOrderLoading);
+  const constructorItems = useSelector(selectConstructorItems) as {
+    bun: TConstructorIngredient | null;
+    ingredients: TConstructorIngredient[];
+  };
+  const price = useSelector(selectTotalPrice) as number;
+  const orderRequest = useSelector(selectOrderLoading) as boolean;
   const orderModalData = useSelector(selectOrder);
   const user = useSelector(selectUser);
 

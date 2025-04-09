@@ -3,8 +3,8 @@ import { FC, SyntheticEvent, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/store';
 import { LoginUI } from '@ui-pages';
-import { loginUser, clearError } from '@services/slices/user-slice';;
-import { selectUserLoading, selectUserError, selectUser } from '@services/selectors';
+import { loginUser, clearError } from '../../services/slices/user-slice';
+import { selectUserLoading, selectUserError, selectUser } from '@selectors';
 
 export const Login: FC = () => {
   const dispatch = useDispatch();

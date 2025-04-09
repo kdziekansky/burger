@@ -2,8 +2,8 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
-import { updateUser, clearUpdateError, getUser } from '@services/slices/user-slice';;
-import { selectUser, selectUserLoading, selectUpdateUserError, selectUserLoaded } from '@services/selectors';
+import { updateUser, clearUpdateError, getUser } from '../../services/slices/user-slice';
+import { selectUser, selectUserLoading, selectUpdateUserError, selectUserLoaded } from '@selectors';
 
 export const Profile: FC = () => {
   const dispatch = useDispatch();
@@ -82,7 +82,7 @@ export const Profile: FC = () => {
     <ProfileUI
       formValue={formValue}
       isFormChanged={isFormChanged}
-      updateUserError={updateUserError}
+      updateUserError={updateUserError as string | undefined}
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}
       handleInputChange={handleInputChange}

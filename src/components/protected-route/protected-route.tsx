@@ -2,7 +2,7 @@
 import { FC, ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector } from '../../services/store';
-import { selectUser, selectUserLoaded } from '@services/selectors';
+import { selectUser, selectUserLoaded } from '@selectors';
 
 interface IProtectedRouteProps {
   children: ReactNode;
@@ -11,8 +11,8 @@ interface IProtectedRouteProps {
 
 export const ProtectedRoute: FC<IProtectedRouteProps> = ({ children, anonymous = false }) => {
   const location = useLocation();
-  const user = useSelector((state) => state.user.user);
-  const isUserLoaded = useSelector((state) => state.user.isUserLoaded);
+  const user = useSelector(selectUser);
+  const isUserLoaded = useSelector(selectUserLoaded);
 
   // Oczekujemy na załadowanie danych użytkownika
   if (!isUserLoaded) {

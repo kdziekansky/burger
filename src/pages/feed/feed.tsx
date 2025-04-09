@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import { Preloader } from '@ui';
 import { FeedUI } from '@ui-pages';
 import { getFeeds } from '../../services/slices/feed-slice';
-import { selectFeedOrders, selectFeedLoading } from '@services/selectors';
+import { selectFeedOrders, selectFeedLoading } from '@selectors';
 import { TOrder } from '@utils-types';
 
 export const Feed: FC = () => {

@@ -4,17 +4,18 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../services/store';
 import { Preloader } from '@ui';
 import { OrderInfoUI } from '@ui';
-import { selectIngredients, selectFeedOrders, selectProfileOrders } from '@services/selectors';
+import { selectIngredients, selectFeedOrders, selectProfileOrders } from '@selectors';
 import { getFeeds } from '../../services/slices/feed-slice';
 import { getProfileOrders } from '../../services/slices/profile-orders-slice';
+import { TIngredient, TOrder } from '@utils-types';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams<{ number: string }>();
   const dispatch = useDispatch();
   
-  const ingredients = useSelector(selectIngredients);
-  const feedOrders = useSelector(selectFeedOrders);
-  const profileOrders = useSelector(selectProfileOrders);
+  const ingredients = useSelector(selectIngredients) as TIngredient[];
+  const feedOrders = useSelector(selectFeedOrders) as TOrder[];
+  const profileOrders = useSelector(selectProfileOrders) as TOrder[];
   
   useEffect(() => {
     // Jeśli nie mamy zamówień, pobieramy je
@@ -29,7 +30,9 @@ export const OrderInfo: FC = () => {
   // Szukamy zamówienia albo w feed, albo w profile
   const orderData = useMemo(() => {
     const parsedNumber = parseInt(number || '0');
-    return [...feedOrders, ...profileOrders].find(order => order.number === parsedNumber);
+    return [...feedOrders, ...profileOrders].find(
+      (order) => order.number === parsedNumber
+    );
   }, [number, feedOrders, profileOrders]);
 
   /* Gotujemy dane dla wyświetlenia */

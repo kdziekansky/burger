@@ -4,14 +4,15 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../services/store';
 import { Preloader } from '../ui/preloader';
 import { IngredientDetailsUI } from '@ui';
-import { selectIngredients, selectSelectedIngredient } from '@services/selectors';
+import { selectIngredients, selectSelectedIngredient } from '@selectors';
 import { setSelectedIngredient, clearSelectedIngredient } from '../../services/slices/ingredients-slice';
+import { TIngredient } from '@utils-types';
 
 export const IngredientDetails: FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch();
   
-  const ingredients = useSelector(selectIngredients);
+  const ingredients = useSelector(selectIngredients) as TIngredient[];
   const ingredientData = useSelector(selectSelectedIngredient);
   
   useEffect(() => {

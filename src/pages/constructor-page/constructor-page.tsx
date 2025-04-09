@@ -3,7 +3,7 @@ import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
 import { ConstructorPageUI } from '@ui-pages';
 import { fetchIngredients } from '../../services/slices/ingredients-slice';
-import { selectIngredientsLoading } from '@services/selectors';
+import { selectIngredientsLoading } from '@selectors';
 
 export const ConstructorPage: FC = () => {
   const dispatch = useDispatch();

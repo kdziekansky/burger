@@ -3,8 +3,8 @@ import { FC, SyntheticEvent, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/store';
 import { RegisterUI } from '@ui-pages';
-import { registerUser, clearError } from '@services/slices/user-slice';;
-import { selectUserLoading, selectUserError, selectUser } from '@services/selectors';
+import { registerUser, clearError } from '../../services/slices/user-slice';
+import { selectUserLoading, selectUserError, selectUser } from '@selectors';
 
 export const Register: FC = () => {
   const dispatch = useDispatch();

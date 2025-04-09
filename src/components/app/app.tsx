@@ -1,15 +1,15 @@
 // src/components/app/app.tsx
 import { FC, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from '../../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 import { ConstructorPage, Feed, Login, Register, ForgotPassword, ResetPassword, Profile, ProfileOrders, NotFound404 } from '@pages';
 import '../../index.css';
 import styles from './app.module.css';
 import { AppHeader } from '@components';
 import { IngredientDetails, Modal, OrderInfo } from '@components';
 import { ProtectedRoute } from '../protected-route/protected-route';
-import { getUser } from '@services/slices/user-slice';;
-import { selectUserLoaded } from '@services/selectors';
+import { getUser } from '../../services/slices/user-slice';
+import { selectUserLoaded } from '@selectors';
 import { Preloader } from '@ui';
 
 // Komponenty do renderowania w modalach
